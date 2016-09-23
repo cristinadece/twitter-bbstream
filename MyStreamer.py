@@ -4,15 +4,16 @@ StreamBBTwitter : MyStreamer
 @euthor: Cristina Muntean (cristina.muntean@isti.cnr.it)
 @date: 9/22/16
 -----------------------------
-
+ or here: http://www.kalisch.biz/2013/10/harvesting-twitter-with-python/
 
 '''
+
 import json
 from datetime import date
 from twython import TwythonStreamer
 
 currentDate = date.today()
-DUMP_DIR = 'FIX ME'
+DUMP_DIR = 'FIXME'
 currentFile = open(DUMP_DIR + "/pisa-IF2016-tweets-" + str(currentDate) + ".json", "w")
 
 class MyStreamer(TwythonStreamer):
@@ -26,7 +27,7 @@ class MyStreamer(TwythonStreamer):
             else:
                 currentFile.close()
                 currentDate = date.today()
-                currentFile = open("pisa-IF2016-tweets-" + str(currentDate) + ".json", "w")
+                currentFile = open(DUMP_DIR + "/pisa-IF2016-tweets-" + str(currentDate) + ".json", "w")
                 currentFile.write(json.dumps(data)+'\n')
 
             # if 'text' in data:
