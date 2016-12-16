@@ -28,11 +28,12 @@ from MyStreamer import MyStreamer
 PISA = '10.345376,43.67402,10.445381,43.739481'
 #LUCCA = '10.385155,43.768703,10.559524,43.930716'
 #MUNICH = '11.481056,48.092299,11.649284,48.195387'
+ROME = '12.341707,41.769596,12.730289,42.050546'
 
-CONSUMER_KEY = 'FIXME'
-CONSUMER_SECRET = 'FIXME'
-ACCESS_TOKEN = 'FIXME'
-ACCESS_TOKEN_SECRET = 'FIXME'
+CONSUMER_KEY = 'M8XmOfA4n8op9GVt4K25UrnzW'
+CONSUMER_SECRET = 'v68gwTGmHbfYyGXEOlQY9fOD6McpeNvw7zEVESXrd5hbZXmSVi'
+ACCESS_TOKEN = '308456550-qOJKjHVk6eZByQG65Ar9mDxpe93TptfIwEZDz3Tu'
+ACCESS_TOKEN_SECRET = 'jBndS8xroxbguzPHS6TxDkgyKYbnZ4li4vSaVGWp0lcUF'
 
 # Minimal time accepted between two Rate Limit Errors
 TOO_SOON = 10
@@ -72,6 +73,7 @@ def log(msg, id=None):
     else:
         logger.info('%s' % msg)
 
+
 def filter():
     start = time.time()
 
@@ -79,7 +81,8 @@ def filter():
                         ACCESS_TOKEN, ACCESS_TOKEN_SECRET, retry_in=3600)  # retry_in - n seconds
     try:
         # FILTER
-        stream.statuses.filter(track='#IF2016', locations=PISA)
+        # stream.statuses.filter(track='#IF2016', locations=PISA)
+        stream.statuses.filter(locations=ROME)
     except TwythonRateLimitError as e:
         # If this error is received after only few calls (10 seconds of calls) wait just a minute
         if time.time() - start < TOO_SOON:

@@ -13,27 +13,22 @@ from datetime import date
 from twython import TwythonStreamer
 
 currentDate = date.today()
-DUMP_DIR = 'FIXME'
-currentFile = open(DUMP_DIR + "/pisa-IF2016-tweets-" + str(currentDate) + ".json", "w")
+DUMP_DIR = '/data/tweets/rome-tweets'
+currentFile = open(DUMP_DIR + "/rome-tweets-" + str(currentDate) + ".json", "w")
 
 class MyStreamer(TwythonStreamer):
 
     def on_success(self, data):
         global currentDate, currentFile
 
-        if data['user']['screen_name'] != 'hesbringsmejoy':
-            if self.is_current_date():
-                currentFile.write(json.dumps(data)+'\n')
-            else:
-                currentFile.close()
-                currentDate = date.today()
-                currentFile = open(DUMP_DIR + "/pisa-IF2016-tweets-" + str(currentDate) + ".json", "w")
-                currentFile.write(json.dumps(data)+'\n')
 
-            # if 'text' in data:
-            #     print data['text'].encode('utf-8')
-            #     print data['place']
-            #     print data['coordinates']
+        if self.is_current_date():
+            currentFile.write(json.dumps(data)+'\n')
+        else:
+            currentFile.close()
+            currentDate = date.today()
+            currentFile = open(DUMP_DIR + "/rome-tweets-" + str(currentDate) + ".json", "w")
+            currentFile.write(json.dumps(data)+'\n')
 
     def on_error(self, status_code, data):
         print status_code
